@@ -1,0 +1,14 @@
+{
+  "name": "claude-tokenized",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
+    "electron": "^39.2.7"
+  }
+}

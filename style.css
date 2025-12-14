@@ -1,0 +1,162 @@
+:root {
+    --claude-color: #D37A5C;
+    --electron-color: #2DD0ED;
+    --overlap-color: #D3D0ED;
+    --bg-color: #FAF9F5;
+}
+
+body{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    background-color: var(--bg-color);
+}
+
+aside{
+    width: 200px;
+    height: 100dvh;
+    border-right: 1px solid #c2c2c2;
+}
+
+aside h3{
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#new-chat{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 5px;
+    border-radius: 15px;
+    padding: 5px;
+    border: 1px solid #c2c2c2;
+    transition: all 0.2s;
+    user-select: none;
+    cursor: pointer;
+}
+
+#new-chat:hover{
+    box-shadow: 0 0 7px black;
+    transform: scale(1.05);
+}
+
+#new-chat-icon{
+    background-color: var(--claude-color);
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+#new-chat-text{
+    margin: 0 10px;
+}
+
+.sidebar-chat{
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.sidebar-chat.active{
+    background-color: #0000001A;
+}
+
+.sidebar-chat:hover{
+    background-color: #0000000D;
+}
+
+main{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcome-icon{
+    height: 100px;
+    margin: 25px auto;
+}
+
+#chat-form {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+    justify-items: stretch;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#chat-input {
+    height: 50px;
+    width: 100%;
+    border-radius: 25px;
+    padding: 0 20px;
+    border: 1px solid #c2c2c2;
+}
+
+#chat-submit {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--claude-color);
+    color: white;
+    cursor: pointer;
+}
+
+.options-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.input-row,
+.options-row {
+    width: 100%;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+
+.option-label {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 90%;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #c2c2c2;
+}
+
+#web-search-label {
+    background-image: url("./assets/web.png");
+}
+
+#thinking-label {
+    background-image: url("./assets/bulb.png");
+}
+
+#web-search:checked + #web-search-label {
+    background-color: var(--overlap-color);
+}
+
+#thinking:checked + #thinking-label {
+    background-color: var(--overlap-color);
+}
