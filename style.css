@@ -13,7 +13,7 @@ body{
 }
 
 aside{
-    width: 200px;
+    width: 15vw;
     height: 100dvh;
     border-right: 1px solid #c2c2c2;
 }
@@ -80,57 +80,116 @@ main{
     align-items: center;
 }
 
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
 #welcome-icon{
-    height: 100px;
+    height: 150px;
     margin: 25px auto;
+    animation: rotate 60s infinite;
+}
+
+#welcome-text{
+    color: #414141;
+    user-select: none;
 }
 
 #chat-form {
-    display: grid;
-    gap: 8px;
+    display: flex;
     width: 100%;
-    justify-items: stretch;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #c2c2c2;
+    width: 40vw;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: text;
 }
 
-.input-row {
+.options-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#left-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #chat-input {
-    height: 50px;
     width: 100%;
-    border-radius: 25px;
-    padding: 0 20px;
-    border: 1px solid #c2c2c2;
+    height: 50px;
+    border: none;
+    transform: translateY(-5px);
+}
+
+#chat-input::placeholder {
+    color: #c2c2c2;
+    font-size: 16px;
+}
+
+#chat-input:focus {
+    outline: none;
+}
+
+#model-select {
+    height: 32px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+#model-select option {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#model-select:hover {
+    background-color: #0000001D;
+}
+
+#model-select:focus {
+    outline: none;
 }
 
 #chat-submit {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
     border: none;
-    background-color: var(--claude-color);
-    color: white;
+    height: 32px;
+    width: 32px;
+    border-radius: 5px;
     cursor: pointer;
+    background-color: var(--claude-color);
+    transition: all 0.2s;
+    opacity: 0.5;
 }
 
-.options-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: space-between;
+#chat-submit.active {
+    opacity: 1;
+    outline: none;
 }
 
-.input-row,
-.options-row {
-    width: 100%;
-    max-width: 50%;
-    margin: 0 auto;
+#chat-submit:hover {
+    filter: brightness(0.9);
+    transform: scale(1.05);
 }
 
+#submit-icon {
+    width: 16px;
+    height: 16px;
+}
 
 .option-label {
     width: 32px;
@@ -139,10 +198,11 @@ main{
     background-color: transparent;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 90%;
+    background-size: 65%;
     cursor: pointer;
     border-radius: 5px;
     border: 1px solid #c2c2c2;
+    margin: 0 2px;
 }
 
 #web-search-label {
