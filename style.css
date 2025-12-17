@@ -16,6 +16,7 @@ aside{
     width: 15vw;
     height: 100dvh;
     border-right: 1px solid #c2c2c2;
+    min-width: 150px;
 }
 
 aside h3{
