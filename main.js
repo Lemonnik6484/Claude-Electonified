@@ -37,6 +37,13 @@ app.on('window-all-closed', () => {
     }
 })
 
+function loadKey() {
+    if (!fs.existsSync(KEY_STORAGE_PATH)) return null;
+
+    const encrypted = fs.readFileSync(KEY_STORAGE_PATH);
+    return safeStorage.decryptString(encrypted);
+}
+
 // --- Handles ---
 
 // Key storage
@@ -46,25 +53,22 @@ ipcMain.handle('saveKey', (_, apiKey) => {
     }
 
     const encrypted = safeStorage.encryptString(apiKey);
-    fs.writeFileSync(STORE_PATH, encrypted);
+    fs.writeFileSync(KEY_STORAGE_PATH, encrypted);
     return true;
 });
 
 ipcMain.handle('loadKey', () => {
-    if (!fs.existsSync(STORE_PATH)) return null;
-
-    const encrypted = fs.readFileSync(STORE_PATH);
-    return safeStorage.decryptString(encrypted);
+    return loadKey();
 });
 
 ipcMain.handle('clearKey', () => {
-    if (fs.existsSync(STORE_PATH)) fs.unlinkSync(STORE_PATH);
+    if (fs.existsSync(KEY_STORAGE_PATH)) fs.unlinkSync(KEY_STORAGE_PATH);
 });
 
 // Claude
 ipcMain.handle('prompt', async (prompt, model) => {
     const anthropic = new Anthropic({
-        apiKey: "",
+        apiKey: loadKey(),
     });
 
     const msg = await anthropic.messages.create({

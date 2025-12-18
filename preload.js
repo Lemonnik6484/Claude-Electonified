@@ -1,5 +1,11 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld("claude", {
-    send: async (prompt, model) => ipcRenderer.invoke('claude-prompt', prompt, model)
+    prompt: async (prompt, model) => ipcRenderer.invoke('prompt', prompt, model)
+});
+
+contextBridge.exposeInMainWorld("storage", {
+    saveKey: (key) => ipcRenderer.invoke('saveKey', key),
+    loadKey: () => ipcRenderer.invoke('loadKey'),
+    clearKey: () => ipcRenderer.invoke('clearKey')
 });
