@@ -3,6 +3,8 @@ const Anthropic = require("@anthropic-ai/sdk");
 const path = require('node:path')
 const fs = require('fs');
 
+const KEY_STORAGE_PATH = path.join(app.getPath('userData'), 'apikey.bin');
+
 function createWindow () {
     const win = new BrowserWindow({
         autoHideMenuBar: true,
@@ -35,9 +37,32 @@ app.on('window-all-closed', () => {
     }
 })
 
-// Handles
+// --- Handles ---
 
-ipcMain.handle('claude-prompt', async (prompt, model) => {
+// Key storage
+ipcMain.handle('saveKey', (_, apiKey) => {
+    if (!safeStorage.isEncryptionAvailable()) {
+        throw new Error('Encryption not available');
+    }
+
+    const encrypted = safeStorage.encryptString(apiKey);
+    fs.writeFileSync(STORE_PATH, encrypted);
+    return true;
+});
+
+ipcMain.handle('loadKey', () => {
+    if (!fs.existsSync(STORE_PATH)) return null;
+
+    const encrypted = fs.readFileSync(STORE_PATH);
+    return safeStorage.decryptString(encrypted);
+});
+
+ipcMain.handle('clearKey', () => {
+    if (fs.existsSync(STORE_PATH)) fs.unlinkSync(STORE_PATH);
+});
+
+// Claude
+ipcMain.handle('prompt', async (prompt, model) => {
     const anthropic = new Anthropic({
         apiKey: "",
     });

@@ -246,3 +246,30 @@ main{
 #thinking:checked + #thinking-label {
     background-color: var(--overlap-color);
 }
+
+.notification {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #A9A9A9;
+    border: 2px solid #36454F;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.notification.success {
+    background-color: #2ECC71;
+    border: 2px solid #196F3D;
+}
+
+.notification.warn {
+    background-color: #FFC107;
+    border: 2px solid #806400;
+}
+
+.notification.error {
+    background-color: #FF5733;
+    border: 2px solid #8B0000;
+}
