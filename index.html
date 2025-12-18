@@ -8,13 +8,23 @@
     <link rel="icon" type="image/png" href="./assets/icon.png">
 </head>
 <body>
+    <div id="settings-btn">
+        <img id="settings-icon" src="./assets/gear.png">
+    </div>
+    <dialog id="settings-dialog" closedby="any">
+        <h2>Settings</h2>
+        <form id="settings-form">
+            <input type="password" id="settings-key" placeholder="Enter your API key...">
+            <button id="settings-save">Save</button>
+        </form>
+    </dialog>
     <aside>
         <h3>Claude Electronified</h3>
         <div id="new-chat">
             <img id="new-chat-icon" src="./assets/plus.png" alt="+">
             <p id="new-chat-text">New Chat</p>
         </div>
-        <div id="sidebar-chat" class="sidebar-chat">Chat Name</div>
+        <template id="sidebar-chat" class="sidebar-chat">Chat Name</template>
     </aside>
     <main>
         <img id="welcome-icon" src="./assets/icon.png">
@@ -46,10 +56,12 @@
             </div>
         </form>
 
-        <template id="chat-message" class="chat-message">
+        <div id="chat-message" class="chat-message">
             <img class="message-icon">
             <p class="message-content">Lorem ipsum dolor sit amet.</p>
-        </template>
+        </div>
     </main>
+
+    <script src="./script.js"></script>
 </body>
 </html>
