@@ -22,37 +22,6 @@ function createDialog(title, html) {
     return dialog;
 }
 
-function showNotification(message, type = "success", timeout = 3000) {
-    let container = document.querySelector(".notification-container");
-
-    if (!container) {
-        container = document.createElement("div");
-        container.className = "notification-container";
-        document.body.appendChild(container);
-    }
-
-    const notif = document.createElement("div");
-    notif.classList.add("notification", type);
-    notif.textContent = message;
-
-    container.appendChild(notif);
-
-    requestAnimationFrame(() => {
-        notif.classList.add("show");
-    });
-
-    const removeNotif = () => {
-        notif.classList.remove("show");
-        notif.addEventListener("transitionend", () => notif.remove(), { once: true });
-    };
-
-    if (timeout > 0) {
-        setTimeout(removeNotif, timeout);
-    }
-
-    notif.addEventListener("click", removeNotif);
-}
-
 settingsBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -61,8 +30,8 @@ settingsBtn.addEventListener('click', (e) => {
             <section class="settings-section" id="settings-key">
                 <p class="setting-desc">Claude API Key:</p>
                 <div class="setting-inputs">
-                    <input type="password" class="settings-input" id="settings-key" placeholder="sk-ant-...">
-                    <button id="settings-save">Save</button>
+                    <input type="password" class="settings-input" id="settings-key-input" placeholder="sk-ant-..." required>
+                    <button id="settings-save" class="no-select">Save</button>
                 </div>
             </section>            
         </form>
@@ -74,11 +43,11 @@ settingsBtn.addEventListener('click', (e) => {
     settingsDialog.showModal();
 
     requestAnimationFrame(() => {
-        dialog.classList.remove("closing");
+        settingsDialog.classList.remove("closing");
     });
 
     const settingsForm = settingsDialog.querySelector("#settings-form");
-    const settingsKeyInput = settingsDialog.querySelector("#settings-key");
+    const settingsKeyInput = settingsDialog.querySelector("#settings-key-input");
     window.storage.loadKey().then(key => {
         settingsKeyInput.value = key ?? "";
     });
@@ -87,19 +56,27 @@ settingsBtn.addEventListener('click', (e) => {
         e.preventDefault();
 
         const apiKey = settingsKeyInput.value.trim();
+        const regex = /^sk-ant-[A-Za-z0-9_-]{20,}$/;
 
-        if (apiKey && !/^sk-ant-[A-Za-z0-9_-]{20,}$/.test(apiKey)) {
-            showNotification("Invalid API key", "error");
-        } else if (!apiKey) {
-            window.storage.clearKey();
-            showNotification("API key was removed", "warn");
-        } else if (apiKey && /^sk-ant-[A-Za-z0-9_-]{20,}$/.test(apiKey)) {
+        if (!apiKey) {
+            return;
+        } else if (!regex.test(apiKey)) {
+            settingsKeyInput.setCustomValidity(
+                "Invalid API key format. Expected: sk-ant-..."
+            );
+            settingsKeyInput.reportValidity();
+            return;
+        } else if (regex.test(apiKey)) {
             window.storage.saveKey(apiKey);
-            showNotification("API key was saved", "success");
         }
+
+        settingsDialog.classList.add("success");
+        setTimeout(() => {
+            settingsDialog.classList.remove("success");
+        }, 300);
     });
 
     settingsDialog.addEventListener('close', () => {
         settingsDialog.remove();
-    })
-})
+    });
+});
