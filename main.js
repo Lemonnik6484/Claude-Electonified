@@ -61,10 +61,6 @@ ipcMain.handle('loadKey', () => {
     return loadKey();
 });
 
-ipcMain.handle('clearKey', () => {
-    if (fs.existsSync(KEY_STORAGE_PATH)) fs.unlinkSync(KEY_STORAGE_PATH);
-});
-
 // Claude
 ipcMain.handle('prompt', async (prompt, model) => {
     const anthropic = new Anthropic({

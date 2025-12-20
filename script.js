@@ -80,3 +80,32 @@ settingsBtn.addEventListener('click', (e) => {
         settingsDialog.remove();
     });
 });
+
+const chatInput = document.getElementById('chat-input');
+const chatSubmitBtn = document.getElementById('chat-submit');
+chatInput.addEventListener('input', (e) => {
+    if (chatInput.value.trim() != '') {
+        chatSubmitBtn.classList.add('active');
+    } else {
+        chatSubmitBtn.classList.remove('active');
+    }
+});
+
+const modelSelect = document.getElementById('model-select');
+modelSelect.value = localStorage.getItem('selected-model') ?? 'claude-sonnet-4-5';
+
+const webSearchCheckbox = document.getElementById('web-search');
+webSearchCheckbox.checked = localStorage.getItem('web-search') ?? false;
+
+const thinkingCheckbox = document.getElementById('thinking');
+thinkingCheckbox.checked = localStorage.getItem('thinking') ?? false;
+
+modelSelect.addEventListener('change', (e) => {
+    localStorage.setItem('selected-model', modelSelect.value);
+});
+webSearchCheckbox.addEventListener('change', (e) => {
+    localStorage.setItem('web-search', webSearchCheckbox.checked);
+});
+thinkingCheckbox.addEventListener('change', (e) => {
+    localStorage.setItem('thinking', thinkingCheckbox.checked);
+});

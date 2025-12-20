@@ -120,6 +120,15 @@ main{
     }
 }
 
+#welcome-message {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #welcome-icon{
     height: 150px;
     margin: 25px auto;
@@ -200,23 +209,23 @@ main{
 
 #chat-submit {
     border: none;
-    height: 32px;
-    width: 32px;
+    height: 34px;
+    width: 34px;
     border-radius: 5px;
     cursor: pointer;
-    background-color: var(--claude-color);
+    background-color: var(--overlap-color);
     transition: all 0.2s;
-    opacity: 0.5;
+    border: 1px solid rgb(194, 194, 194);
 }
 
+
 #chat-submit.active {
-    opacity: 1;
     outline: none;
+    background-color: var(--claude-color);
 }
 
 #chat-submit:hover {
     filter: brightness(0.9);
-    transform: scale(1.05);
 }
 
 #submit-icon {
@@ -228,7 +237,7 @@ main{
     width: 32px;
     height: 32px;
     display: inline-block;
-    background-color: transparent;
+    background-color: var(--overlap-color);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 65%;
@@ -236,6 +245,11 @@ main{
     border-radius: 5px;
     border: 1px solid #c2c2c2;
     margin: 0 2px;
+    transition: all 0.2s;
+}
+
+.option-label:hover {
+    filter: brightness(0.9);
 }
 
 #web-search-label {
@@ -247,11 +261,11 @@ main{
 }
 
 #web-search:checked + #web-search-label {
-    background-color: var(--overlap-color);
+    background-color: var(--claude-color);
 }
 
 #thinking:checked + #thinking-label {
-    background-color: var(--overlap-color);
+    background-color: var(--claude-color);
 }
 
 .dialog {

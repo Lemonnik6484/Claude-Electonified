@@ -6,6 +6,5 @@ contextBridge.exposeInMainWorld("claude", {
 
 contextBridge.exposeInMainWorld("storage", {
     saveKey: (key) => ipcRenderer.invoke('saveKey', key),
-    loadKey: () => ipcRenderer.invoke('loadKey'),
-    clearKey: () => ipcRenderer.invoke('clearKey')
+    loadKey: () => ipcRenderer.invoke('loadKey')
 });
