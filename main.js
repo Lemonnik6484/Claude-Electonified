@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, safeStorage } = require('electron/main')
+const { app, BrowserWindow, ipcMain, safeStorage, globalShortcut } = require('electron/main')
 const Anthropic = require("@anthropic-ai/sdk");
 const path = require('node:path')
 const fs = require('fs');
@@ -19,6 +19,10 @@ function createWindow () {
     })
 
     win.loadFile('index.html')
+
+    globalShortcut.register("CommandOrControl+Alt+C", () => {
+        win.webContents.send("show-credits");
+    });
 }
 
 app.whenReady().then(() => {

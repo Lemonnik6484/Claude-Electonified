@@ -81,6 +81,13 @@ settingsBtn.addEventListener('click', (e) => {
     });
 });
 
+window.credits.onShow(() => {
+    const encoded = "TWFkZSBieSBMZW1vbm5payBmb3IgTHVjYW5peA==";
+    const decoded = atob(encoded);
+
+    alert(decoded);
+});
+
 const chatInput = document.getElementById('chat-input');
 const chatSubmitBtn = document.getElementById('chat-submit');
 chatInput.addEventListener('input', (e) => {

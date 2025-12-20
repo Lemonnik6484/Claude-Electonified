@@ -8,3 +8,7 @@ contextBridge.exposeInMainWorld("storage", {
     saveKey: (key) => ipcRenderer.invoke('saveKey', key),
     loadKey: () => ipcRenderer.invoke('loadKey')
 });
+
+contextBridge.exposeInMainWorld("credits", {
+    onShow: (cb) => ipcRenderer.on("show-credits", cb)
+});
